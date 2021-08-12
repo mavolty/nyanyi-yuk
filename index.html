@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="app/style.css">
+    <title>Keshi Time</title>
+</head>
+
+<body>
+    <div class="background">
+        <div class="player">
+            <div class="player__picture">
+                <figure class="player__img">
+                    <img src="img/drunk.jpg" alt="Music image">
+                </figure>
+            </div>
+            <div class="player__details">
+                <h2 class="player__song">Drunk</h2>
+                <span class="player__artist">Keshi</span>
+            </div>
+            <audio src="music/2 soon.mp3"></audio>
+            <div class="player__progress">
+                <div class="progress__duration">
+                    <span class="progress__current-time">00:00</span>
+                    <span class="progress__end-time">03:26</span>
+                </div>
+                <div class="progress__bar" id="js-progress-el">
+                    <div class="progress__bar-item" id="js-progress"></div>
+                </div>
+            </div>
+            <div class="player__controls">
+                <svg class="controls__item" id="js-prev">
+                    <use href="svg/sprite.svg#play-back" class="controls__icon"></use>
+                </svg>
+                <svg class="controls__item controls__item-play" id="js-play">
+                    <use href="svg/sprite.svg#play" class="controls__icon"></use>
+                </svg>
+                <svg class="controls__item controls__item-pause" id="js-pause">
+                    <use href="svg/sprite.svg#pause" class="controls__icon"></use>
+                </svg>
+                <svg class="controls__item" id="js-next">
+                    <use href="svg/sprite.svg#play-forward" class="controls__icon"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script type="module" src="app/script.js"></script>
+</body>
+
+</html>
