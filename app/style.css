@@ -53,8 +53,12 @@ body {
   margin-top: 2.5rem;
 }
 
+.l-space {
+  margin-top: 1.5rem;
+}
+
 .xl-space {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .nav__brand,
@@ -202,9 +206,9 @@ body {
 }
 
 .player__artist {
+  color: var(--clr-neutral-200);
   font-size: 2.4rem;
   font-weight: var(--fw-400);
-  color: var(--clr-neutral-200);
 }
 
 .player__control-wrapper {
