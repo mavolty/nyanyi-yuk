@@ -182,6 +182,20 @@ body {
   border-radius: 50%;
 }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.player__img.playing {
+  animation: rotate 45s infinite;
+}
+
 .player__song {
   font-size: 3rem;
   font-weight: var(--fw-700);

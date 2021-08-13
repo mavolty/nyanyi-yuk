@@ -13,6 +13,7 @@ const nextBtn = document.getElementById('js-next');
 const libraryBtn = document.getElementById('js-btn-lib');
 const playerContainer = document.querySelector('.player__song-wrapper');
 const displayBackground = document.querySelector('body');
+const displayPlayerImg = document.querySelector('.player__img');
 const displayTitle = document.querySelector('.player__song');
 const displayArtist = document.querySelector('.player__artist');
 const displayProgress = document.getElementById('js-progress');
@@ -52,6 +53,7 @@ let songs = [drunk, tooSoon, blue, itKillsMe, bandaids];
 let startIndex = 0;
 
 function playSong() {
+  displayPlayerImg.classList.add('playing');
   isPlaying = true;
   pauseBtn.classList.add('show');
   playBtn.classList.add('hide');
@@ -59,6 +61,7 @@ function playSong() {
 }
 
 function pauseSong() {
+  displayPlayerImg.classList.remove('playing');
   isPlaying = false;
   pauseBtn.classList.remove('show');
   playBtn.classList.remove('hide');
