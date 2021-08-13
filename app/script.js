@@ -53,11 +53,14 @@ let songs = [drunk, tooSoon, blue, itKillsMe, bandaids];
 let startIndex = 0;
 
 function playSong() {
-  displayPlayerImg.classList.add('playing');
   isPlaying = true;
   pauseBtn.classList.add('show');
   playBtn.classList.add('hide');
   music.play();
+  displayPlayerImg.classList.remove('playing');
+  setTimeout(() => {
+    displayPlayerImg.classList.add('playing');
+  }, 100);
 }
 
 function pauseSong() {
