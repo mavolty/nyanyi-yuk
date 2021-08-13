@@ -113,7 +113,7 @@ function chooseSong(e) {
     btn.classList.add('active');
   }
 
-  pauseSong();
+  playSong();
 }
 
 function progressBar(e) {
