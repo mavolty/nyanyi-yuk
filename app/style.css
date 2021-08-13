@@ -76,6 +76,8 @@ body {
   border-radius: 8px;
   cursor: pointer;
   padding: 0.4em 0.8em;
+  position: relative;
+  z-index: 1;
   transition: transform 0.2s ease;
 }
 
@@ -181,7 +183,6 @@ body {
   margin: 0 auto;
   box-shadow: 0 8px 16px -6px rgba(16, 16, 16, 0.3);
   width: 20%;
-  border-radius: 50%;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -272,8 +273,47 @@ body {
   fill: var(--clr-neutral-100);
 }
 
-@media screen and (min-width: 120em) {
+@media screen and (max-width: 76.8em) {
   html {
-    font-size: 87.5%;
+    font-size: 75%;
+  }
+
+  .nav,
+  .player__control-wrapper,
+  .player__song-wrapper {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .nav__brand,
+  .player__song-wrapper,
+  .player__control-wrapper {
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+
+  .app.active .nav__brand,
+  .app.active .player__song-wrapper,
+  .app.active .player__control-wrapper {
+    opacity: 0;
+  }
+
+  .player__img {
+    width: 40%;
+  }
+
+  .library {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 45em) {
+  .nav__brand,
+  .btn {
+    font-size: 1.5rem;
+  }
+
+  .player__img {
+    width: 60%;
   }
 }
