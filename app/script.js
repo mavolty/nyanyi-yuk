@@ -11,6 +11,7 @@ const pauseBtn = document.getElementById('js-pause');
 const prevBtn = document.getElementById('js-prev');
 const nextBtn = document.getElementById('js-next');
 const libraryBtn = document.getElementById('js-btn-lib');
+const playerContainer = document.querySelector('.player__song-wrapper');
 const displayBackground = document.querySelector('body');
 const displayTitle = document.querySelector('.player__song');
 const displayArtist = document.querySelector('.player__artist');
@@ -41,9 +42,9 @@ class Songs {
 let isPlaying = false;
 
 let drunk = new Songs('drunk', 'drunk', 'Keshi');
-let tooSoon = new Songs('2 soon', '2 soon', 'Keshi');
+let tooSoon = new Songs('tooSoon', '2 soon', 'Keshi');
 let blue = new Songs('blue', 'blue', 'Keshi');
-let itKillsMe = new Songs('it kills me', 'it kills me', 'Keshi');
+let itKillsMe = new Songs('itKillsMe', 'it kills me', 'Keshi');
 let bandaids = new Songs('bandaids', 'bandaids', 'Keshi');
 
 let songs = [drunk, tooSoon, blue, itKillsMe, bandaids];
@@ -65,8 +66,9 @@ function pauseSong() {
 }
 
 function loadSong(song) {
-  displayImg.setAttribute('src', `img/${song.name}.jpg`);
-  music.setAttribute('src', `music/${song.name}.mp3`);
+  displayImg.setAttribute('src', `img/${song.title}.jpg`);
+  music.setAttribute('src', `music/${song.title}.mp3`);
+  playerContainer.dataset.name = song.name;
   displayTitle.textContent = song.title;
   displayArtist.textContent = song.artist;
 }
@@ -87,6 +89,25 @@ function nextSong() {
   }
   loadSong(songs[startIndex]);
   playSong();
+}
+
+function chooseSong(e) {
+  const btn = e.target.closest('.song');
+  if (!btn) return;
+  const song = Array.from(document.querySelectorAll('.song'));
+
+  song
+    .filter(el => el.classList.contains('active'))
+    .map(el => el.classList.remove('active'));
+
+  const songIndex = songs.findIndex(el => el.name === btn.dataset.name);
+  loadSong(songs[songIndex]);
+
+  if (songs[songIndex].name === btn.dataset.name) {
+    btn.classList.add('active');
+  }
+
+  pauseSong();
 }
 
 function progressBar(e) {
@@ -135,27 +156,46 @@ function setProgressBar(e) {
   music.currentTime = value;
 }
 
-playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
-pauseBtn.addEventListener('click', () =>
-  isPlaying ? pauseSong() : playSong()
-);
-prevBtn.addEventListener('click', prevSong);
-nextBtn.addEventListener('click', nextSong);
-music.addEventListener('timeupdate', progressBar);
-displayProgressEl.addEventListener('click', setProgressBar);
-songs.map(el =>
-  displayLibrary.insertAdjacentHTML(
-    'beforeend',
-    `<div class="song">
-          <img class="song__img" src="img/${el.name}.jpg" alt="Drunk">
+function activeDisplay() {
+  displayLibrary.classList.toggle('active');
+  app.classList.toggle('active');
+}
+
+function setLibrary() {
+  songs.map(el =>
+    displayLibrary.insertAdjacentHTML(
+      'beforeend',
+      `<div class="song" data-name="${el.name}">
+          <img class="song__img" src="img/${el.title}.jpg" alt="${el.title}">
           <div class="song__details">
               <h2 class="song__title">${el.title}</h2>
               <span class="song__artist">${el.artist}</span>
           </div>
       </div>`
-  )
-);
-libraryBtn.addEventListener('click', function () {
-  displayLibrary.classList.toggle('active');
-  app.classList.toggle('active');
-});
+    )
+  );
+
+  const song = Array.from(document.querySelectorAll('.song'));
+  song
+    .filter(el => el.dataset.name === playerContainer.dataset.name)
+    .map(el => el.classList.add('active'));
+}
+
+function init() {
+  loadSong(drunk);
+  setLibrary();
+  playBtn.addEventListener('click', () =>
+    isPlaying ? pauseSong() : playSong()
+  );
+  pauseBtn.addEventListener('click', () =>
+    isPlaying ? pauseSong() : playSong()
+  );
+  prevBtn.addEventListener('click', prevSong);
+  nextBtn.addEventListener('click', nextSong);
+  music.addEventListener('timeupdate', progressBar);
+  displayProgressEl.addEventListener('click', setProgressBar);
+  libraryBtn.addEventListener('click', activeDisplay);
+  displayLibrary.addEventListener('click', chooseSong);
+}
+
+init();
