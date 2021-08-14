@@ -11,8 +11,11 @@ const playBtn = document.getElementById('js-play');
 const pauseBtn = document.getElementById('js-pause');
 const prevBtn = document.getElementById('js-prev');
 const nextBtn = document.getElementById('js-next');
+const repeatBtn = document.getElementById('js-repeat');
 const libraryBtn = document.getElementById('js-btn-lib');
 const playerContainer = document.querySelector('.player__song-wrapper');
+const volumeBar = document.getElementById('js-volume-bar');
+const volumeIcon = document.querySelector('.controls__icon');
 const displayVolume = document.querySelector('.controls__volume');
 const displayBackground = document.querySelector('body');
 const displayPlayerImg = document.querySelector('.player__img');
@@ -189,20 +192,71 @@ function setLibrary() {
     .map(el => el.classList.add('active'));
 }
 
+function setVolume() {
+  music.volume = volumeBar.value / 100;
+  volumeBar.style.backgroundSize = `${music.volume * 100}% 100%`;
+}
+
+function activeVolume() {
+  displayVolume.classList.toggle('active');
+
+  if (displayVolume.classList.contains('active')) {
+    setTimeout(() => {
+      volumeBtn.style.marginLeft = '.4em';
+      if (music.volume === 0)
+        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
+      if (music.volume > 0 && music.volume <= 33)
+        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-low');
+      if (music.volume > 33 && music.volume <= 66)
+        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-medium');
+      if (music.volume > 66 && music.volume <= 100)
+        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-high');
+    }, 50);
+  } else {
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-off');
+    volumeBtn.style.marginLeft = '0';
+  }
+}
+
+function changeVolume(e) {
+  const value = e.target.value;
+  const min = e.target.min;
+  const max = e.target.max;
+
+  if (value == 0)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
+  if (value > 0 && value <= 33)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-low');
+  if (value > 33 && value <= 66)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-medium');
+  if (value > 66 && value <= 100)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-high');
+
+  volumeBar.style.backgroundSize = `${
+    ((value - min) * 100) / (max - min)
+  }% 100%`;
+  music.volume = value / 100;
+}
+
 function init() {
   loadSong(drunk);
+  setVolume();
   setLibrary();
-  volumeBtn.addEventListener('click', function () {
-    displayVolume.classList.toggle('active');
-  });
   playBtn.addEventListener('click', () =>
     isPlaying ? pauseSong() : playSong()
   );
   pauseBtn.addEventListener('click', () =>
     isPlaying ? pauseSong() : playSong()
   );
+  volumeBtn.addEventListener('click', activeVolume);
+  volumeBar.addEventListener('input', changeVolume);
   prevBtn.addEventListener('click', prevSong);
   nextBtn.addEventListener('click', nextSong);
+  repeatBtn.addEventListener('click', function (e) {
+    music.loop === false ? (music.loop = true) : (music.loop = false);
+    console.log(music.loop);
+    repeatBtn.classList.toggle('active');
+  });
   music.addEventListener('timeupdate', progressBar);
   displayProgressEl.addEventListener('click', setProgressBar);
   libraryBtn.addEventListener('click', activeDisplay);

@@ -47,9 +47,15 @@
                 class="controls__icon"
               ></use>
             </svg>
-            <div class="progress__bar" id="js-progress-el">
-              <div class="progress__bar-item" id="js-progress"></div>
-            </div>
+
+            <input
+              type="range"
+              name="volume"
+              id="js-volume-bar"
+              min="0"
+              max="100"
+              step="1"
+            />
           </div>
           <svg class="controls__item" id="js-prev">
             <use href="svg/sprite.svg#play-back" class="controls__icon"></use>
@@ -66,7 +72,7 @@
               class="controls__icon"
             ></use>
           </svg>
-          <svg class="controls__item">
+          <svg class="controls__item controls__item-repeat" id="js-repeat">
             <use href="svg/sprite.svg#repeat" class="controls__icon"></use>
           </svg>
         </div>
