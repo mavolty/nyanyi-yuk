@@ -253,6 +253,29 @@ body {
   height: 4rem;
 }
 
+.controls__volume {
+  display: flex;
+  align-items: center;
+  flex-basis: 10%;
+  transition: all 0.5s ease;
+}
+
+.controls__volume.active {
+  flex-basis: 30%;
+}
+
+.controls__volume .progress__bar {
+  opacity: 0.8;
+  flex-grow: 0;
+  transition: flex-grow 0.5s ease, opacity 0.2s ease;
+  margin-left: -0.5em;
+}
+
+.controls__volume.active .progress__bar {
+  opacity: 1;
+  flex-grow: 1;
+}
+
 .controls__item-play {
   display: block;
 }

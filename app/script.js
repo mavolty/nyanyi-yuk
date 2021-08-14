@@ -6,12 +6,14 @@ const displayImg = document.querySelector('img');
 
 // Get Element
 const music = document.querySelector('audio');
+const volumeBtn = document.getElementById('js-volume');
 const playBtn = document.getElementById('js-play');
 const pauseBtn = document.getElementById('js-pause');
 const prevBtn = document.getElementById('js-prev');
 const nextBtn = document.getElementById('js-next');
 const libraryBtn = document.getElementById('js-btn-lib');
 const playerContainer = document.querySelector('.player__song-wrapper');
+const displayVolume = document.querySelector('.controls__volume');
 const displayBackground = document.querySelector('body');
 const displayPlayerImg = document.querySelector('.player__img');
 const displayTitle = document.querySelector('.player__song');
@@ -190,6 +192,9 @@ function setLibrary() {
 function init() {
   loadSong(drunk);
   setLibrary();
+  volumeBtn.addEventListener('click', function () {
+    displayVolume.classList.toggle('active');
+  });
   playBtn.addEventListener('click', () =>
     isPlaying ? pauseSong() : playSong()
   );
