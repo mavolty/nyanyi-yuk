@@ -91,6 +91,13 @@ function prevSong() {
   }
   loadSong(songs[startIndex]);
   playSong();
+  const song = Array.from(document.querySelectorAll('.song'));
+  song
+    .filter(el => el.classList.contains('active'))
+    .map(el => el.classList.remove('active'));
+  song
+    .filter(el => el.dataset.name === playerContainer.dataset.name)
+    .map(el => el.classList.add('active'));
 }
 
 function nextSong() {
@@ -100,6 +107,13 @@ function nextSong() {
   }
   loadSong(songs[startIndex]);
   playSong();
+  const song = Array.from(document.querySelectorAll('.song'));
+  song
+    .filter(el => el.classList.contains('active'))
+    .map(el => el.classList.remove('active'));
+  song
+    .filter(el => el.dataset.name === playerContainer.dataset.name)
+    .map(el => el.classList.add('active'));
 }
 
 function chooseSong(e) {
@@ -114,7 +128,7 @@ function chooseSong(e) {
   const songIndex = songs.findIndex(el => el.name === btn.dataset.name);
   loadSong(songs[songIndex]);
 
-  if (songs[songIndex].name === btn.dataset.name) {
+  if (playerContainer.dataset.name === btn.dataset.name) {
     btn.classList.add('active');
   }
 
@@ -223,8 +237,7 @@ function changeVolume(e) {
   const min = e.target.min;
   const max = e.target.max;
 
-  if (value == 0)
-    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
+  if (value == 0) volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
   if (value > 0 && value <= 33)
     volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-low');
   if (value > 33 && value <= 66)
@@ -236,6 +249,11 @@ function changeVolume(e) {
     ((value - min) * 100) / (max - min)
   }% 100%`;
   music.volume = value / 100;
+}
+
+function loopSong(e) {
+  music.loop === false ? (music.loop = true) : (music.loop = false);
+  repeatBtn.classList.toggle('active');
 }
 
 function init() {
@@ -252,11 +270,7 @@ function init() {
   volumeBar.addEventListener('input', changeVolume);
   prevBtn.addEventListener('click', prevSong);
   nextBtn.addEventListener('click', nextSong);
-  repeatBtn.addEventListener('click', function (e) {
-    music.loop === false ? (music.loop = true) : (music.loop = false);
-    console.log(music.loop);
-    repeatBtn.classList.toggle('active');
-  });
+  repeatBtn.addEventListener('click', loopSong);
   music.addEventListener('timeupdate', progressBar);
   displayProgressEl.addEventListener('click', setProgressBar);
   libraryBtn.addEventListener('click', activeDisplay);

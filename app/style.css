@@ -291,7 +291,6 @@ body {
 }
 
 .controls__volume.active input[type='range'] {
-  /* max-width: 100%; */
   opacity: 1;
   flex-grow: 1;
 }
