@@ -52,8 +52,28 @@ let tooSoon = new Songs('tooSoon', '2 soon', 'Keshi');
 let blue = new Songs('blue', 'blue', 'Keshi');
 let itKillsMe = new Songs('itKillsMe', 'it kills me', 'Keshi');
 let bandaids = new Songs('bandaids', 'bandaids', 'Keshi');
+let trapAnthem = new Songs(
+  'trapAnthem',
+  'Trap Anthem',
+  'MC Virgins & Yun Head'
+);
+let breeze = new Songs('breeze', 'Breeze', 'Marius');
+let cottonCandy = new Songs('cottonCandy', 'Cotton Candy', 'Weston Estate');
+let weekend = new Songs('weekend', 'Weekend', 'Clubhouse');
+let sideEffects = new Songs('sideEffects', 'Side Effects', 'cehryl');
 
-let songs = [drunk, tooSoon, blue, itKillsMe, bandaids];
+let songs = [
+  drunk,
+  tooSoon,
+  blue,
+  itKillsMe,
+  bandaids,
+  trapAnthem,
+  breeze,
+  cottonCandy,
+  weekend,
+  sideEffects,
+];
 
 let startIndex = 0;
 
