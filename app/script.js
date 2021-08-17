@@ -17,7 +17,6 @@ const playerContainer = document.querySelector('.player__song-wrapper');
 const volumeBar = document.getElementById('js-volume-bar');
 const volumeIcon = document.querySelector('.controls__icon');
 const displayVolume = document.querySelector('.controls__volume');
-const displayBackground = document.querySelector('body');
 const displayPlayerImg = document.querySelector('.player__img');
 const displayTitle = document.querySelector('.player__song');
 const displayArtist = document.querySelector('.player__artist');
@@ -27,15 +26,6 @@ const displayCurrentTime = document.querySelector('.progress__current-time');
 const displayDuration = document.querySelector('.progress__end-time');
 const displayLibrary = document.querySelector('.library');
 const app = document.querySelector('.app');
-
-displayImg.addEventListener('load', function () {
-  const primaryCol = colorThief.getColor(displayImg);
-  const secondaryCol = colorThief.getPalette(displayImg)[1];
-  const [firstCol, secondCol, thirdCol] = primaryCol;
-  const [firstSecCol, secondSecCol, thirdSecCol] = secondaryCol;
-  displayBackground.style.background = `linear-gradient(to right top, rgb(${firstCol}, ${secondCol}, ${thirdCol}) 0%, rgb(${firstSecCol}, ${secondSecCol}, ${thirdSecCol}) 100%)`;
-  libraryBtn.style.color = `rgb(${firstCol}, ${secondCol}, ${thirdCol})`;
-});
 
 class Songs {
   constructor(name, title, artist) {
@@ -76,6 +66,20 @@ let songs = [
 ];
 
 let startIndex = 0;
+
+function changeColorUI() {
+  const primaryCol = colorThief.getPalette(displayImg)[0];
+  const secondaryCol = colorThief.getPalette(displayImg)[1];
+  const [firstCol, secondCol, thirdCol] = primaryCol;
+  const [firstSecCol, secondSecCol, thirdSecCol] = secondaryCol;
+  gsap.fromTo('.player__img', { filter: 'blur(1px)' }, { filter: 'blur(0)' });
+  gsap.to('body', {
+    duration: 1.5,
+    backgroundImage: `linear-gradient(to right top, rgb(${firstCol}, ${secondCol}, ${thirdCol}) 0%, rgb(${firstSecCol}, ${secondSecCol}, ${thirdSecCol}) 100%)`,
+    ease: 'sine.out',
+  });
+  libraryBtn.style.color = `rgb(${firstCol}, ${secondCol}, ${thirdCol})`;
+}
 
 function playSong() {
   isPlaying = true;
@@ -231,20 +235,24 @@ function setVolume() {
   volumeBar.style.backgroundSize = `${music.volume * 100}% 100%`;
 }
 
+function controlVolume(volumeValue) {
+  if (volumeValue === 0)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
+  if (volumeValue > 0 && volumeValue <= 33)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-low');
+  if (volumeValue > 33 && volumeValue <= 66)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-medium');
+  if (volumeValue > 66 && volumeValue <= 100)
+    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-high');
+}
+
 function activeVolume() {
   displayVolume.classList.toggle('active');
 
   if (displayVolume.classList.contains('active')) {
     setTimeout(() => {
       volumeBtn.style.marginLeft = '.4em';
-      if (music.volume === 0)
-        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
-      if (music.volume > 0 && music.volume <= 33)
-        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-low');
-      if (music.volume > 33 && music.volume <= 66)
-        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-medium');
-      if (music.volume > 66 && music.volume <= 100)
-        volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-high');
+      controlVolume(music.volume * 100);
     }, 50);
   } else {
     volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-off');
@@ -253,17 +261,11 @@ function activeVolume() {
 }
 
 function changeVolume(e) {
-  const value = e.target.value;
+  const value = +e.target.value;
   const min = e.target.min;
   const max = e.target.max;
 
-  if (value == 0) volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-mute');
-  if (value > 0 && value <= 33)
-    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-low');
-  if (value > 33 && value <= 66)
-    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-medium');
-  if (value > 66 && value <= 100)
-    volumeIcon.setAttribute('href', 'svg/sprite.svg#volume-high');
+  controlVolume(value);
 
   volumeBar.style.backgroundSize = `${
     ((value - min) * 100) / (max - min)
@@ -278,6 +280,7 @@ function loopSong(e) {
 
 function init() {
   loadSong(drunk);
+  displayImg.addEventListener('load', changeColorUI);
   setVolume();
   setLibrary();
   playBtn.addEventListener('click', () =>
