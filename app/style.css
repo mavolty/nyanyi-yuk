@@ -423,6 +423,10 @@ body {
 }
 
 @media screen and (max-width: 45em) {
+  .player__controls {
+    width: 100%;
+  }
+  
   .controls__item {
     width: 2rem;
     height: 2rem;
