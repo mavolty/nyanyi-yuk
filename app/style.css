@@ -422,6 +422,16 @@ body {
 }
 
 @media screen and (max-width: 45em) {
+  .controls__item {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .controls__item-repeat {
+    width: 4rem;
+    height: 4rem;
+  }
+
   .nav__brand,
   .btn {
     font-size: 1.5rem;
