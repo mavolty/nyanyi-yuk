@@ -281,7 +281,7 @@ body {
   height: 0.5rem;
   cursor: pointer;
   opacity: 0.8;
-  transition: flex-grow 0.3s ease, opacity 0.2s ease;
+  transition: flex-grow 0.3s ease, width 0.3s ease, opacity 0.2s ease;
 }
 
 .controls__volume input[type='range']:hover {
@@ -375,7 +375,8 @@ body {
   height: 4rem;
   border-radius: 50%;
   display: block;
-  transition: background-color 0.3s ease, padding .1s ease-out, border-radius 1ms;
+  transition: background-color 0.3s ease, padding 0.1s ease-out,
+    border-radius 1ms;
 }
 
 .controls__item-repeat.active {
@@ -426,15 +427,20 @@ body {
   .player__controls {
     width: 100%;
   }
-  
+
+  .controls__volume.active input[type='range'] {
+    width: 5em;
+    margin-right: -0.5em;
+  }
+
   .controls__item {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .controls__item-repeat {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .nav__brand,
