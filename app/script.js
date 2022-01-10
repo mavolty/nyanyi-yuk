@@ -2,7 +2,6 @@
 import ColorThief from './dist/color-thief.mjs';
 
 const colorThief = new ColorThief();
-const displayImg = document.querySelector('img');
 
 // Get Element
 const music = document.querySelector('audio');
@@ -68,8 +67,8 @@ let songs = [
 let startIndex = 0;
 
 function changeColorUI() {
-  const primaryCol = colorThief.getPalette(displayImg)[0];
-  const secondaryCol = colorThief.getPalette(displayImg)[1];
+  const primaryCol = colorThief.getPalette(displayPlayerImg)[0];
+  const secondaryCol = colorThief.getPalette(displayPlayerImg)[1];
   const [firstCol, secondCol, thirdCol] = primaryCol;
   const [firstSecCol, secondSecCol, thirdSecCol] = secondaryCol;
   gsap.fromTo('.player__img', { filter: 'blur(1px)' }, { filter: 'blur(0)' });
@@ -101,7 +100,7 @@ function pauseSong() {
 }
 
 function loadSong(song) {
-  displayImg.setAttribute('src', `img/${song.title}.jpg`);
+  displayPlayerImg.setAttribute('src', `assets/img/${song.title}.jpg`);
   music.setAttribute('src', `music/${song.title}.mp3`);
   playerContainer.dataset.name = song.name;
   displayTitle.textContent = song.title;
@@ -215,7 +214,7 @@ function setLibrary() {
     displayLibrary.insertAdjacentHTML(
       'beforeend',
       `<div class="song" data-name="${el.name}">
-          <img class="song__img" src="img/${el.title}.jpg" alt="${el.title}">
+          <img class="song__img" src="assets/img/${el.title}.jpg" alt="${el.title}">
           <div class="song__details">
               <h2 class="song__title">${el.title}</h2>
               <span class="song__artist">${el.artist}</span>
@@ -280,7 +279,7 @@ function loopSong(e) {
 
 function init() {
   loadSong(drunk);
-  displayImg.addEventListener('load', changeColorUI);
+  displayPlayerImg.addEventListener('load', changeColorUI);
   setVolume();
   setLibrary();
   playBtn.addEventListener('click', () =>
