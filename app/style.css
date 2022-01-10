@@ -63,7 +63,7 @@ body {
   margin-top: 3rem;
 }
 
-.nav__brand,
+.nav__brand-text,
 .btn {
   font-family: 'Quicksand', sans-serif;
   font-weight: var(--fw-700);
@@ -108,6 +108,17 @@ body {
   width: 50%;
   margin: 0 auto;
   padding: 3em;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav__brand-media {
+  width: 3.5em;
+  height: 3.5em;
+  margin-right: 1em;
 }
 
 .library {
@@ -401,14 +412,14 @@ body {
     margin: 0 auto;
   }
 
-  .nav__brand,
+  .nav__brand-text,
   .player__song-wrapper,
   .player__control-wrapper {
     opacity: 1;
     transition: all 0.5s ease;
   }
 
-  .app.active .nav__brand,
+  .app.active .nav__brand-text,
   .app.active .player__song-wrapper,
   .app.active .player__control-wrapper {
     opacity: 0;
@@ -443,7 +454,7 @@ body {
     height: 2.5rem;
   }
 
-  .nav__brand,
+  .nav__brand-text,
   .btn {
     font-size: 1.5rem;
   }
