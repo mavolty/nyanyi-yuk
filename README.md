@@ -61,4 +61,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: https://awesomescreenshot.s3.amazonaws.com/image/2851424/19862598-f68e44898a891167865a3dc33c49f91b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJSCJQ2NM3XLFPVKA%2F20220110%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220110T155901Z&X-Amz-Expires=28800&X-Amz-SignedHeaders=host&X-Amz-Signature=0d7667040ab1785bac021681885dad107bbe0316a5007edf848df662beb5d315
+[product-screenshot]: docs/demo-website.png
